@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TodoList-component</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">提交</button>
+        <button v-on:click="handleBtnClickDelete">清除</button>
+        <ul>
+            <!-- <li v-for="item in list">{{item}}</li> -->
+            <todo-item v-bind:content="item" 
+                        v-bind:index="index" 
+                        v-for="(item,index) in list" 
+                        @delete='handleItemDelete'>
+            </todo-item>
+        </ul>
+    </div>
+    <script>
+        //全局组件
+        // Vue.component("TodoItem", {
+        //     props: [`content`],
+        //     template: `<li>{{content}}</li>`
+        // })
+        //局部组件
+        let TodoItem = {
+            props: ["content", "index"],
+            template: "<li @click='handleitemClick'>{{content}}</li>",
+            methods: {
+                handleitemClick: function (e) {
+                    //派发事件 在父组件里面监听
+                    this.$emit("delete", this.index)
+                }
+            }
+        }
+
+        var app = new Vue({
+            el: `#root`,
+            //局部组件需要 全局组件不需要
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                list: [`第一课的内容`, `第二课的内容`],
+                inputValue: ''
+            },
+            methods: {
+                handleBtnClick: function (e) {
+                    if (!this._data.inputValue) {
+                        alert("输入不能为空")
+                        return;
+                    }
+                    this._data.list.push(this._data.inputValue);
+                    this.inputValue = ""
+                },
+                handleBtnClickDelete: function (e) {
+                    this._data.list = [];
+                    this.inputValue = ""
+                },
+                handleItemDelete: function (index) {
+                    this._data.list.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

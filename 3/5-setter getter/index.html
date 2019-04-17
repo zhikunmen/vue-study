@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>setter getter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        {{fullName}}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                firstName: "men",
+                lastName: "zhikun"
+            },
+            computed: {
+                fullName: {
+                    get: function () {
+                        return this.firstName + " " + this.lastName;
+                    },
+                    set: function (val) {
+                        let arr = val.split(" ");
+                        if (arr.length > 1) {
+                            this.lastName = arr[1]
+                            this.firstName = arr[0];
+                        } else {
+                            this.firstName = val;
+                        }
+                        console.log(val);
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

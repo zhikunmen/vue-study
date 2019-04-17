@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>列表渲染</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--  v-for遍历数组的顺序是item index
+              v-for遍历对象的顺序是value key index-->
+        <template v-for="(item,index) of list">
+            <div :key='item.id'>
+                {{item.text}} ------{{index}}
+            </div>
+            <span :value='item.id * 3'>
+                {{item.text}}
+            </span>
+        </template>
+        <div v-for="(item,key,index) of userinfo">
+            {{key}}:{{item}}---{{index}}
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                //改变数组索引数据不能改变列表显示 只能使用下面7中方法 或者修改引用
+                //push pop shift unshift splice sort reverse
+                list: [
+                    { id: '1', text: "men" },
+                    { id: '2', text: "zhi" },
+                    { id: '3', text: "kun" },
+                ],
+                //改变对象索引数据可以改变列表显示 但是增加字段可以重新赋值引用或者Vue.set方法 vm.$set
+                userinfo: {
+                    name: "dell",
+                    age: 28,
+                    gender: "male"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

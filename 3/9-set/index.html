@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue set</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for="(item,key) of userInfo" @click="handleDivClick">
+            {{key}}:{{item}}
+        </div>
+        <div v-for="item of list">
+            {{item}}
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                userInfo: {
+                    name: "menzhikun",
+                    age: 24,
+                },
+                list: [1, 2, 3, 4]
+            },
+            methods: {
+                handleDivClick: function () {
+                    Vue.set(this.userInfo, new Date(), Date.now())
+                    this.$set(this.userInfo, "address", "shenzhen")
+                    Vue.set(this.list, 2, Math.random())
+                    this.$set(this.list, 1, Math.random());
+                }
+            },
+            watch: {
+
+            },
+            template: "",
+            components: {},
+            computed: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>条件渲染</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="show">{{message}}</div>
+        <div v-else>Bye Bye</div>
+        <div v-show="show" :style="[{color:'red'}]">{{message}}</div>
+        <div v-if="value === 'a'">This is {{value}}</div>
+        <div v-else-if="value === 'b'">This is {{value}}</div>
+        <div v-else>This is other</div>
+        
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                value: "a",
+                show: false,
+                message: "hello worlds"
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组件参数校验</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../../vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child ></child>
+
+    </div>
+
+    <script>
+
+        let child = {
+            props: {
+                //类型表示
+                // content: [String, Number],
+                content: {
+                    //类型
+                    type: String,//[String, Number]
+                    //是否
+                    required: false,
+                    //默认值
+                    default: 'hahaha',
+                    //长度必须大于五
+                    validator: function (value) {
+                        return value.length > 5
+                    }
+                }
+            },
+            template: "<div>{{content}}</div>",
+        }
+
+        var vm = new Vue({
+            el: "#root",
+            data: {
+
+            },
+            components: {
+                child: child,
+            }
+        })
+    </script>
+</body>
+
+</html>
